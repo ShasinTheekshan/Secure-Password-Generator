@@ -1,6 +1,7 @@
 import tkinter as tk
 import random
 import string
+import pyperclip  # To copy passwords
 
 def generate_password():
     length = int(length_var.get())
@@ -19,6 +20,9 @@ def generate_password():
 
     password = "".join(random.choice(all_chars) for _ in range(length))
     password_var.set(password)
+
+def copy_to_clipboard():
+    pyperclip.copy(password_var.get())
 
 # Create main window
 root = tk.Tk()
@@ -43,6 +47,8 @@ tk.Button(root, text="Generate Password", font=("Arial", 12), command=generate_p
 password_var = tk.StringVar()
 tk.Entry(root, textvariable=password_var, font=("Arial", 12), width=30, state="readonly").pack()
 
+# Copy Button
+tk.Button(root, text="Copy to Clipboard", font=("Arial", 12), command=copy_to_clipboard).pack(pady=5)
+
 # Run the application
 root.mainloop()
-
