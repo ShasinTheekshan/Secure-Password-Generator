@@ -1,25 +1,28 @@
 import tkinter as tk
 import random
 import string
-import pyperclip  # To copy passwords
+import pyperclip
 
 def generate_password():
-    length = int(length_var.get())
-    use_digits = digits_var.get()
-    use_special = special_var.get()
+    try:
+        length = int(length_var.get())
+        use_digits = digits_var.get()
+        use_special = special_var.get()
 
-    letters = string.ascii_letters
-    digits = string.digits if use_digits else ""
-    special_chars = string.punctuation if use_special else ""
+        letters = string.ascii_letters
+        digits = string.digits if use_digits else ""
+        special_chars = string.punctuation if use_special else ""
 
-    all_chars = letters + digits + special_chars
+        all_chars = letters + digits + special_chars
 
-    if len(all_chars) == 0:
-        password_var.set("Error!")
-        return
+        if len(all_chars) == 0:
+            password_var.set("Error!")
+            return
 
-    password = "".join(random.choice(all_chars) for _ in range(length))
-    password_var.set(password)
+        password = "".join(random.choice(all_chars) for _ in range(length))
+        password_var.set(password)
+    except ValueError:
+        password_var.set("Invalid Length!")
 
 def copy_to_clipboard():
     pyperclip.copy(password_var.get())
